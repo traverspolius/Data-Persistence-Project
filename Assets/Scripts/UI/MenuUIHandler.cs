@@ -2,35 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+using UnityEngine.UI;
+using TMPro;
 
+[DefaultExecutionOrder(1000)]
 public class MenuUIHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public static MenuUIHandler menuScene;
+    public TMP_InputField inputField;
+    public string player_name;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        if(menuScene == null)
+        {
+            menuScene = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void StartNew()
     {
+        player_name = inputField.text;
         SceneManager.LoadScene(1);
-    }
-
-    public void Exit()
-    {
-#if UNITY_EDITOR
-        EditorApplication.ExitPlaymode();
-#else
-        Application.Quit();
-#endif
     }
 }
